@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.affiliate.entities.Person" %>
+<%@ page import="com.affiliate.entities.Comment" %>
 <%@ page import="com.affiliate.persistence.PMF" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="javax.jdo.Query" %>
@@ -25,9 +26,32 @@
 	    	// clean datastore
 	    	q.deletePersistentAll();
 	    	
+	    	Person p;
+	    	Comment c;
 	    	List<Person> persons = new ArrayList<Person>();
-			for (int i = 0; i < 5; i++)
-				persons.add(new Person("" + i, "" + i+1));
+	    	List<Comment> comments;
+	    	
+	    	p = new Person("Albert", "Einstein");
+	    	comments = new ArrayList<Comment>();
+	    	c = new Comment("A person who never made a mistake never tried anything new.");
+	    	comments.add(c);
+	    	c = new Comment("Imagination is more important than knowledge.");
+	    	comments.add(c);
+	    	c = new Comment("A person starts to live when he can live outside himself.");
+	    	comments.add(c);
+	    	p.setComments(comments);
+			persons.add(p);
+			
+	    	p = new Person("Bruce", "Lee");
+	    	comments = new ArrayList<Comment>();
+	    	c = new Comment("If you spend too much time thinking about a thing, you'll never get it done.");
+	    	comments.add(c);
+	    	c = new Comment("Obey the principles without being bound by them.");
+	    	comments.add(c);
+	    	c = new Comment("Real living is living for others.");
+	    	comments.add(c);
+	    	p.setComments(comments);
+			persons.add(p);			
 			
 			// store persons into the datastore
 			pm.makePersistentAll(persons);

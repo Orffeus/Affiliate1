@@ -1,4 +1,10 @@
-<!-- Indices written at Wed, 6 Jul 2011 15:19:43 UTC -->
+<!-- Indices written at Thu, 7 Jul 2011 13:29:07 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 28 times in query history -->
+    <datastore-index kind="Comment" ancestor="true" source="auto">
+        <property name="comments_INTEGER_IDX" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>

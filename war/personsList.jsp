@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.affiliate.entities.Person" %>
+<%@ page import="com.affiliate.entities.Comment" %>
 <%@ page import="com.affiliate.persistence.PMF" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="javax.jdo.Query" %>
@@ -24,21 +25,25 @@
 	
 	    try {
 			persons = (List<Person>) q.execute();
-			
-			// Google App Engine datastore bug resolve
-			// http://groups.google.com/group/google-appengine-java/browse_thread/thread/945f6ca66c1c587e
-			persons.size();
+		    
+		    for (Person p : persons) {
+	%>
+			<h2><%= p.getFirstName() %> <%= p.getLastName() %> said: </h2>
+	<% 
+				for (Comment c : p.getComments()) {
+	%>		
+					<p><%= c.getContent() %></p>
+	<%
+				}
+			}
 	    } catch (Throwable t) {
 	    	t.printStackTrace();
 	    } finally {
 	        pm.close();
 	        q.closeAll();
 	    }
-	    
-	    for (Person p : persons) {
 	%>
-		<p>Person: <%= p.getFirstName() %> <%= p.getLastName() %></p>
-	<%  } %>
-	You can return to welcome page <a href="index.jsp" >here</a>! 
+	<h2>Tomas Zajicek said: </h2>
+	You can return to the welcome page <a href="index.jsp" >here</a>! 
 </body>
 </html>

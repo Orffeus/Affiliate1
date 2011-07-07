@@ -1,9 +1,10 @@
 package com.affiliate.entities;
+
+import java.util.List;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
@@ -21,6 +22,9 @@ public class Person {
 	
 	@Persistent
 	private String email;
+	
+	@Persistent
+	private List<Comment> comments;
 
 	public Person(String firstName, String lastName) {
 		super();
@@ -58,5 +62,13 @@ public class Person {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
 	}
 }
