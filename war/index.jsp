@@ -63,6 +63,7 @@
 	    }
 	%>
 	<h1>Welcome!</h1>
-	You can see the persons list <a href="personsList.jsp" >here</a>! 
+	You can see the persons list <a href="/views/personsList" >here</a>
+	or you can use this <a href="/views/hello" >link</a>
 </body>
 </html>

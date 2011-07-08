@@ -44,6 +44,6 @@
 	    }
 	%>
 	<h2>Tomas Zajicek said: </h2>
-	You can return to the welcome page <a href="index.jsp" >here</a>! 
+	You can return to the welcome page <a href="../index.jsp" >here</a>! 
 </body>
 </html>
