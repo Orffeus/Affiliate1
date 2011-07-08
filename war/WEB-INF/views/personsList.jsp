@@ -45,5 +45,28 @@
 	%>
 	<h2>Tomas Zajicek said: </h2>
 	You can return to the welcome page <a href="../index.jsp" >here</a>! 
+	
+	<h1>Comments List</h1>
+	<% 
+		PersistenceManager pmc = PMF.get().getPersistenceManager();
+	    
+	 	List<Comment> comments = null;
+    	Query qc = pmc.newQuery(Comment.class);
+	
+	    try {
+			comments = (List<Comment>) qc.execute();
+		    
+		    for (Comment c : comments) {
+	%>
+			<h2>comment: <%= c.getContent() %></h2>
+	<% 
+			}
+	    } catch (Throwable t) {
+	    	t.printStackTrace();
+	    } finally {
+	        pmc.close();
+	        qc.closeAll();
+	    }
+	%>
 </body>
 </html>
