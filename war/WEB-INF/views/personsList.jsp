@@ -5,6 +5,8 @@
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="javax.jdo.Query" %>
 <%@ page import="javax.jdo.Transaction" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -16,6 +18,20 @@
 <title>Persons Page</title>
 </head>
 <body>
+
+   <%
+     UserService userService = UserServiceFactory.getUserService();
+     if (!userService.isUserLoggedIn()) {
+   %>
+      Please <a href="<%=userService.createLoginURL("/views/login.jsp")%>">log in</a>>
+   <% } else { %>
+      Welcome, <%= userService.getCurrentUser().getNickname() %>!
+        <a href="<%=userService.createLogoutURL("/")%>" >log out</a>
+   <%
+     }
+   %>
+
+
 	<h1>Persons List</h1>
 	<% 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
@@ -45,6 +61,8 @@
 	%>
 	<h2>Tomas Zajicek said: </h2>
 	You can return to the welcome page <a href="../index.jsp" >here</a>! 
+	<h2>Winzo said: </h2>
+	You can post comment <a href="/views/addComment" >here</a>!
 	
 	<h1>Comments List</h1>
 	<% 

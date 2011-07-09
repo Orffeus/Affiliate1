@@ -20,7 +20,7 @@
     if (user != null) {
 %>
 <p>Hello, <%= user.getNickname() %>! (You can
-<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
+<a href="<%= userService.createLogoutURL("../index.jsp") %>">sign out</a>.)</p>
 <%
     } else {
 %>
@@ -30,6 +30,8 @@ to include your name with greetings you post.</p>
 <%
     }
 %>
+
+
 
 	Hello world!
 </f:view>

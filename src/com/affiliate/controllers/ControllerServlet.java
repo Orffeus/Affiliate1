@@ -28,10 +28,28 @@ public class ControllerServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			else {
-				if (uri.equals("/views/hello"))
+			else if (uri.equals("/views/hello")) 
+			{
 				try {
 					req.getRequestDispatcher(url).forward(req, resp);
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else if (uri.equals("/views/addComment")) 
+			{
+				try {
+					req.getRequestDispatcher(url).forward(req, resp);
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				try {
+					req.getRequestDispatcher("/WEB-INF/views/notFound.jsp").forward(req, resp);
 				} catch (ServletException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -40,9 +58,21 @@ public class ControllerServlet extends HttpServlet {
 		}
 		else
 		{
+			//resp.getWriter().println("<p>"+userService.createLoginURL(uri)+"</p>");
 			resp.getWriter().println("<p>Please <a href=\"" +
                     userService.createLoginURL(uri) +
                     "\">sign in</a>.</p>");
+			
+			//userService.createLoginURL(uri);
+			
+			/*
+			try {
+				req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			*/
 
 		}
 		
