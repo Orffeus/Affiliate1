@@ -7,6 +7,8 @@
 <%@ page import="javax.jdo.Transaction" %>
 <%@ page import="com.google.appengine.api.users.UserService" %>
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
+<%@ page import="com.google.appengine.api.datastore.Key" %>
+
 
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -23,7 +25,7 @@
      UserService userService = UserServiceFactory.getUserService();
      if (!userService.isUserLoggedIn()) {
    %>
-      Please <a href="<%=userService.createLoginURL("/views/login.jsp")%>">log in</a>>
+      Please <a href="<%=userService.createLoginURL("/views/login.jsp")%>">log in</a>
    <% } else { %>
       Welcome, <%= userService.getCurrentUser().getNickname() %>!
         <a href="<%=userService.createLogoutURL("/")%>" >log out</a>
@@ -46,9 +48,9 @@
 	%>
 			<h2><%= p.getFirstName() %> <%= p.getLastName() %> said: </h2>
 	<% 
-				for (Comment c : p.getComments()) {
+				for (Key c : p.getComments()) {
 	%>		
-					<p><%= c.getContent() %></p>
+					<p><%= pm.getObjectById(Comment.class,c).getContent() %></p>
 	<%
 				}
 			}

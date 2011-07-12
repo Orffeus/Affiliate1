@@ -20,11 +20,13 @@
 <body>
 	<% 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Query q = pm.newQuery(Person.class);
+		Query qp = pm.newQuery(Person.class);
+		Query qc = pm.newQuery(Comment.class);
 	
 	    try {
 	    	// clean datastore
-	    	q.deletePersistentAll();
+	    	qc.deletePersistentAll();
+	    	qp.deletePersistentAll();
 	    	
 	    	Person p;
 	    	Comment c;
@@ -39,6 +41,7 @@
 	    	comments.add(c);
 	    	c = new Comment("A person starts to live when he can live outside himself.");
 	    	comments.add(c);
+	    	pm.makePersistentAll(comments);
 	    	p.setComments(comments);
 			persons.add(p);
 			
@@ -50,16 +53,20 @@
 	    	comments.add(c);
 	    	c = new Comment("Real living is living for others.");
 	    	comments.add(c);
+	    	pm.makePersistentAll(comments);
 	    	p.setComments(comments);
 			persons.add(p);			
 			
 			// store persons into the datastore
 			pm.makePersistentAll(persons);
+			//pm.makePersistentAll(comments);
 	    } catch (Throwable t) {
 	    	t.printStackTrace();
 	    } finally {
 	        pm.close();
-	        q.closeAll();
+	        qp.closeAll();
+	        qc.closeAll();
+	        
 	    }
 	%>
 	<h1>Welcome!</h1>

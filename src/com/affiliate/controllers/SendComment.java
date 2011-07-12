@@ -32,13 +32,12 @@ public class SendComment extends HttpServlet {
         	q.setFilter("lastName == userLastName");
         	q.declareParameters("String userLastName");
         
-        	//q.addFilter("email", Query.class, user.getEmail());
-        	//q.add
         	
         	Person person = null;
         	
         	try {
-        		
+        		//TODO needs some unique key
+				@SuppressWarnings("unchecked")
 				List<Person> persons = (List<Person>) q.execute(user.getNickname());
         		person = persons.get(0);
         	} catch (Throwable t) {
@@ -56,6 +55,7 @@ public class SendComment extends HttpServlet {
         	List<Comment> comments = new ArrayList<Comment>();
     		Comment c = new Comment(content);
     		comments.add(c);
+    		pm.makePersistentAll(comments);
     		person.setComments(comments);
     		
     		pm.makePersistentAll(person);
