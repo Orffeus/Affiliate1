@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<div id="header">
+	<jsp:include page="common/header.jsp"/>
+</div>
+
 <h2>Here you can add comment </h2>
 
   <form action="../send" method="post">

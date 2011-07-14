@@ -11,8 +11,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Hello Page</title>
+<link rel="stylesheet" href="../../css/styles.css" type="text/css" />
 </head>
 <body>
+
+<div id="menucase">
+	<jsp:include page="../common/header.jsp"/>
+</div>
+
 <f:view>
 <%
     UserService userService = UserServiceFactory.getUserService();
@@ -20,12 +26,12 @@
     if (user != null) {
 %>
 <p>Hello, <%= user.getNickname() %>! (You can
-<a href="<%= userService.createLogoutURL("../index.jsp") %>">sign out</a>.)</p>
+<a href="<%= userService.createLogoutURL("index.jsp") %>">sign out</a>.)</p>
 <%
     } else {
 %>
 <p>Hello!
-<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
+<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in <% request.getRequestURI().toString(); %> </a>
 to include your name with greetings you post.</p>
 <%
     }

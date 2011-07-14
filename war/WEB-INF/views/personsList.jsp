@@ -18,8 +18,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Persons Page</title>
+<link rel="stylesheet" href="../../css/styles.css" type="text/css" />
 </head>
 <body>
+
+<div id="header">
+	<jsp:include page="../common/header.jsp"/>
+</div>
 
    <%
      UserService userService = UserServiceFactory.getUserService();
