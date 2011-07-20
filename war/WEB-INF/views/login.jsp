@@ -13,5 +13,10 @@
 	<jsp:include page="../common/header.jsp"/>
 </div>
 
+<p>For access to this page you have to be logged on.</p>
+<p>You can use your own Google account or create it for sign in.</p>
+<p>For Google accounts click here.</p>
+
+
 </body>
 </html>

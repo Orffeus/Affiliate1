@@ -13,5 +13,17 @@
 	<jsp:include page="/WEB-INF/common/header.jsp"/>
 </div>
 
+<p> Welcome </p>
+
+<div class = "content">
+		<div class = "colum_left float_l">
+		
+		</div>
+		<div class = "colum_right float_l">
+			<p>Here you can put datastore to initial state: <a href="../index2.jsp">index2</a></p>
+		</div>
+</div>
+
+
 </body>
 </html>

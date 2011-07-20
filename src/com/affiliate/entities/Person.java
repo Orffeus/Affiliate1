@@ -1,8 +1,6 @@
 package com.affiliate.entities;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -25,8 +23,6 @@ public class Person {
 	@Persistent
 	private String email;
 	
-	@Persistent
-	private Set<Key> comments;
 
 	public Person(String firstName, String lastName) {
 		super();
@@ -66,26 +62,4 @@ public class Person {
 		return email;
 	}
 
-	public void setComments(List<Comment> comments) {
-		this.comments = new HashSet<Key>();
-		for (Comment c : comments)
-		{
-			this.comments.add(c.getKey());
-		}
-	}
-
-	public Set<Key> getComments() {
-		return comments;
-	}
-	
-	public void addComment(Comment comment){
-		this.comments.add(comment.getKey());
-	}
-	
-	public void addComments(List<Comment> comments){
-		for (Comment c : comments)
-		{
-			this.comments.add(c.getKey());
-		}
-	}
 }

@@ -1,5 +1,6 @@
 package com.affiliate.entities;
 
+import java.util.Date;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -16,9 +17,20 @@ public class Comment {
 	@Persistent
 	private String content;
 	
-	public Comment(String content) {
+	@Persistent
+	private Date date;
+	
+	@Persistent
+	private Key person;
+	
+	@Persistent
+	private Key realty;
+	
+	public Comment(Key person, Key realty, String content) {
 		super();
 		this.content = content;
+		this.person = person;
+		this.realty = realty;
 	}
 
 	public void setKey(Key key) {
@@ -35,5 +47,29 @@ public class Comment {
 
 	public String getContent() {
 		return content;
+	}
+
+	public Key getPerson() {
+		return person;
+	}
+
+	public void setPerson(Key person) {
+		this.person = person;
+	}
+
+	public Key getRealty() {
+		return realty;
+	}
+
+	public void setRealty(Key realty) {
+		this.realty = realty;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }

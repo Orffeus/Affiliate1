@@ -26,12 +26,12 @@
     if (user != null) {
 %>
 <p>Hello, <%= user.getNickname() %>! (You can
-<a href="<%= userService.createLogoutURL("index.jsp") %>">sign out</a>.)</p>
+<a href="<%= userService.createLogoutURL("../index.jsp") %>">sign out</a>.)</p>
 <%
     } else {
 %>
 <p>Hello!
-<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in <% request.getRequestURI().toString(); %> </a>
+<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in <%= request.getRequestURI()%> , <%= request.getRequestURL()%>, <%= request.getQueryString() %></a>
 to include your name with greetings you post.</p>
 <%
     }

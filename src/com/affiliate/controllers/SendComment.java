@@ -27,6 +27,7 @@ public class SendComment extends HttpServlet {
 
         String content = req.getParameter("content");
         if (content != null) {
+        	/* TODO setting comments
         	PersistenceManager pm = PMF.get().getPersistenceManager();
         	Query q = pm.newQuery(Person.class);
         	q.setFilter("lastName == userLastName");
@@ -64,7 +65,7 @@ public class SendComment extends HttpServlet {
 
     		resp.sendRedirect("/views/personsList");
 
-        	
+        	*/
         }
         else
         {

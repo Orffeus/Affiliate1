@@ -8,8 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
+//import com.google.appengine.api.users.UserService;
+//import com.google.appengine.api.users.UserServiceFactory;
 
 
 @SuppressWarnings("serial")
@@ -27,11 +27,13 @@ public class ControllerServlet extends HttpServlet {
 		List<String> forAnybody = new ArrayList<String>(); 
 		forAnybody.add("/views/hello");
 		forAnybody.add("/views/login");
+		forAnybody.add("/views/index");
+		//forAnybody.add("/WEB-INF/views/hello.jsp");
 		
 		String uri = req.getRequestURI().toString();
 		String url = "/WEB-INF" + uri + ".jsp";
 		
-		UserService userService = UserServiceFactory.getUserService();	
+		//UserService userService = UserServiceFactory.getUserService();	
 		
 		if (forRegistered.contains(uri))
 		{
@@ -46,9 +48,17 @@ public class ControllerServlet extends HttpServlet {
 			}
 			else
 			{
+				try {
+					req.getRequestDispatcher("/views/login").forward(req, resp);
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				/*
 				resp.getWriter().println("<p>Please <a href=\"" +
 	                    userService.createLoginURL(uri) +
 	                    "\">sign in</a>.</p>");
+	            */
 			}
 		}
 		else

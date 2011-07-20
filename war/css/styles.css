@@ -1,5 +1,14 @@
 @CHARSET "UTF-8";
 
+.float_l {
+	float:left;
+}
+
+
+
+
+
+
 h1 {
 	font-family:Verdana, Arial, Helvetica, sans-serif;
 	font-size:16px;
