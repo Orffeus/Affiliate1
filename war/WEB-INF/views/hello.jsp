@@ -13,6 +13,7 @@
 <title>Hello Page</title>
 <link rel="stylesheet" href="../../css/styles.css" type="text/css" />
 </head>
+<% session.setAttribute("site", "hello"); %>
 <body>
 
 <div id="menucase">

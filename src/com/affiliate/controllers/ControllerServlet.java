@@ -28,12 +28,15 @@ public class ControllerServlet extends HttpServlet {
 		forAnybody.add("/views/hello");
 		forAnybody.add("/views/login");
 		forAnybody.add("/views/index");
+		forAnybody.add("/views/search");
+		forAnybody.add("/views/result");
 		//forAnybody.add("/WEB-INF/views/hello.jsp");
 		
 		String uri = req.getRequestURI().toString();
 		String url = "/WEB-INF" + uri + ".jsp";
 		
 		//UserService userService = UserServiceFactory.getUserService();	
+		
 		
 		if (forRegistered.contains(uri))
 		{

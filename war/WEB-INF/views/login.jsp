@@ -7,6 +7,7 @@
 <title>Login Page</title>
 <link rel="stylesheet" href="../../css/styles.css" type="text/css" />
 </head>
+<% session.setAttribute("site", "login"); %>
 <body>
 
 <div id="header">
