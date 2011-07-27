@@ -1,8 +1,12 @@
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="com.affiliate.persistence.PMF" %>
 <%@ page import="com.affiliate.entities.Realty" %>
+<%@ page import="com.affiliate.entities.Comment" %>
 <%@ page import="java.util.List" %>
 <%@ page import="javax.jdo.Query" %>
+<%@ page import="com.google.appengine.api.datastore.Key" %>
+<%@ page import="com.google.appengine.api.datastore.KeyFactory" %>
+
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -24,21 +28,32 @@
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 	    
 	 	List<Realty> realtys = null;
+	 	List<Comment> comments = null;
     	Query q = pm.newQuery(Realty.class);
-    	if (session.getAttribute("resultFilter")!=null) 
-    		q.setFilter((String)session.getAttribute("resultFilter"));
-    	if (session.getAttribute("resultParam")!=null) 
-    		q.setFilter((String)session.getAttribute("resultParam"));
-
+    	q.setFilter("key == realtyParam");
+    	q.declareParameters(Key.class.getName() + " realtyParam");
+    	Query q2 = pm.newQuery(Comment.class);
+		q2.setFilter("realty == :realtyKey");
+		Key keyFromId = KeyFactory.stringToKey(request.getParameter("id"));
 	
     	try {
-			realtys = (List<Realty>) q.execute();
-		    
+    		realtys = (List<Realty>) q.execute(keyFromId); 
+    		
 		    for (Realty r : realtys) {
 	%>
 				<h2><%= r.getName() %></h2>
 				<p>Info: <%= r.getInfo() %></p>
+				
+				<div id="comment">
+					<jsp:include page="/WEB-INF/views/addComment.jsp"/>
+				</div>
 	<% 
+				comments = (List<Comment>) q2.execute(keyFromId);
+				for (Comment c : comments) {
+	%>		
+					<p><%= c.getContent() %></p>
+	<%
+				}
 			}
     	} catch (Throwable t) {
     		t.printStackTrace();

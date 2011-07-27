@@ -3,6 +3,7 @@
 <%@ page import="com.affiliate.entities.Realty" %>
 <%@ page import="java.util.List" %>
 <%@ page import="javax.jdo.Query" %>
+<%@ page import="com.google.appengine.api.datastore.KeyFactory" %>
 
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -15,10 +16,6 @@
 <link rel="stylesheet" href="../../css/styles.css" type="text/css" />
 </head>
 <% session.setAttribute("site", "search"); %>
-<% 
-	//na testovani, pak smazat
-	//session.setAttribute("queryFilter", "name == 'Hajovna'");
-%>
 <body>
 
 <div id="header">
@@ -41,7 +38,7 @@
 		    
 		    for (Realty r : realtys) {
 	%>
-				<h2><a href="../views/result" onclick='<% session.setAttribute("resultFilter", "name == 'Hajovna'"); %>'><%= r.getName() %></a></h2>
+				<h2><a href="../views/result?id=<%= KeyFactory.keyToString(r.getKey()) %>" ><%= r.getName() %></a></h2>
 				<hr>
 	<% 
 			}

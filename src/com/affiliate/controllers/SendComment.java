@@ -13,8 +13,11 @@ import com.affiliate.entities.Person;
 import com.affiliate.entities.Comment;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
+import javax.mail.Session;
+
 import java.util.List;
 import java.util.ArrayList;
+import com.google.appengine.api.datastore.KeyFactory;
 
 
 @SuppressWarnings("serial")
@@ -27,8 +30,8 @@ public class SendComment extends HttpServlet {
 
         String content = req.getParameter("content");
         if (content != null) {
-        	/* TODO setting comments
-        	PersistenceManager pm = PMF.get().getPersistenceManager();
+        	//TODO setting comments
+        	PersistenceManager pm = PMF.get().getPersistenceManager();       	
         	Query q = pm.newQuery(Person.class);
         	q.setFilter("lastName == userLastName");
         	q.declareParameters("String userLastName");
@@ -51,21 +54,22 @@ public class SendComment extends HttpServlet {
         	{
         		person = new Person("Novy", "Novacek");
         		person.setEmail(user.getEmail());
+        		pm.makePersistentAll(person);
         	}
         	
         	List<Comment> comments = new ArrayList<Comment>();
-    		Comment c = new Comment(content);
-    		comments.add(c);
+        	Comment c = new Comment(person.getKey(), KeyFactory.stringToKey(req.getParameter("id")) ,content);
+        	comments.add(c);
     		pm.makePersistentAll(comments);
-    		person.setComments(comments);
     		
-    		pm.makePersistentAll(person);
+    		//pm.makePersistentAll(person);
     		pm.close();
 	        q.closeAll();
 
-    		resp.sendRedirect("/views/personsList");
+	        //TODO redirect back
+    		resp.sendRedirect("/views/result?id=" + req.getParameter("id"));
 
-        	*/
+        	
         }
         else
         {

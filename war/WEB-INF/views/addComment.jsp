@@ -1,24 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page import="com.google.appengine.api.users.User" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 
-<div id="header">
-	<jsp:include page="common/header.jsp"/>
-</div>
+
+<%  
+	UserService userService = UserServiceFactory.getUserService();
+	User user = userService.getCurrentUser();
+%>
+
+<% 
+	if (user==null) 
+	{
+		//todo request url
+%>
+		<p>Only logged users can post comments. You can sign in 
+		<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">here</a>
+		.</p>
+<%
+	}
+	else
+	{
+%>
+
 
 <h2>Here you can add comment </h2>
-
-  <form action="../send" method="post">
+	<%String s = "../send?id=" + request.getParameter("id");  %>
+  <form action="<%= s%>" method="post">
     <div><textarea name="content" rows="3" cols="60"></textarea></div>
     <div><input type="submit" value="Send comment" /></div>
   </form>
 
+<%
+	}
+%>
 
 </body>
 </html>
