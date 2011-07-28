@@ -11,10 +11,12 @@
 <% 
 	if (user==null) 
 	{
-		//todo request url
+		String param = request.getParameter("id");
+		String actualPage = "" + request.getAttribute("javax.servlet.forward.request_uri"); 
 %>
+		<p><%= actualPage + "?id=" + param %></p>
 		<p>Only logged users can post comments. You can sign in 
-		<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">here</a>
+		<a href="<%= userService.createLoginURL(actualPage + "?id=" + param) %>">here</a>
 		.</p>
 <%
 	}
@@ -34,5 +36,3 @@
 	}
 %>
 
-</body>
-</html>

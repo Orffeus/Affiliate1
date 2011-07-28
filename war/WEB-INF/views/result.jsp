@@ -2,6 +2,7 @@
 <%@ page import="com.affiliate.persistence.PMF" %>
 <%@ page import="com.affiliate.entities.Realty" %>
 <%@ page import="com.affiliate.entities.Comment" %>
+<%@ page import="com.affiliate.entities.Person" %>
 <%@ page import="java.util.List" %>
 <%@ page import="javax.jdo.Query" %>
 <%@ page import="com.google.appengine.api.datastore.Key" %>
@@ -29,11 +30,14 @@
 	    
 	 	List<Realty> realtys = null;
 	 	List<Comment> comments = null;
+	 	List<Person> persons = null;
     	Query q = pm.newQuery(Realty.class);
     	q.setFilter("key == realtyParam");
     	q.declareParameters(Key.class.getName() + " realtyParam");
     	Query q2 = pm.newQuery(Comment.class);
 		q2.setFilter("realty == :realtyKey");
+		Query q3 = pm.newQuery(Person.class);
+		q3.setFilter("key == :personKey");
 		Key keyFromId = KeyFactory.stringToKey(request.getParameter("id"));
 	
     	try {
@@ -50,7 +54,9 @@
 	<% 
 				comments = (List<Comment>) q2.execute(keyFromId);
 				for (Comment c : comments) {
+					persons = (List<Person>) q3.execute(c.getPerson());
 	%>		
+					<h4><%= persons.get(0).getFirstName() %> <%= persons.get(0).getLastName() %></h4>
 					<p><%= c.getContent() %></p>
 	<%
 				}
@@ -60,6 +66,8 @@
     	} finally {
         	pm.close();
         	q.closeAll();
+        	q2.closeAll();
+        	q3.closeAll();
     	}
 	%>
 
