@@ -9,8 +9,7 @@
 %>
 
 <% 
-	if (user==null) 
-	{
+	if (user==null) {
 		String param = request.getParameter("id");
 		String actualPage = "" + request.getAttribute("javax.servlet.forward.request_uri"); 
 %>
@@ -20,8 +19,7 @@
 		.</p>
 <%
 	}
-	else
-	{
+	else {
 %>
 
 

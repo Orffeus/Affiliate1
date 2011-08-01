@@ -22,9 +22,9 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 @SuppressWarnings("serial")
 public class SendComment extends HttpServlet {
-	
+
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {        		
-		
+
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
 
@@ -47,11 +47,8 @@ public class SendComment extends HttpServlet {
         	} catch (Throwable t) {
     	    	t.printStackTrace();
     	    }
-        	
-        	
-        	
-        	if (person == null)
-        	{
+        	       	
+        	if (person == null) {
         		person = new Person("Novy", "Novacek");
         		person.setEmail(user.getEmail());
         		pm.makePersistentAll(person);
@@ -67,18 +64,10 @@ public class SendComment extends HttpServlet {
 	        q.closeAll();
 
 	        //TODO redirect back
-    		resp.sendRedirect("/views/result?id=" + req.getParameter("id"));
-
-        	
+    		resp.sendRedirect("/views/result?id=" + req.getParameter("id"));   	
         }
-        else
-        {
+        else {
         	resp.getWriter().println("<p>lalala</p>");
         }
-
-        
-		
-		
 	}
-
 }

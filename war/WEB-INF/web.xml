@@ -4,9 +4,34 @@
    xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
    http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+    <context-param>
+    	<description>This is our partner ID assigned by Interhome</description>
+    	<param-name>userID</param-name>
+    	<param-value>481786</param-value>
+   	</context-param>
+   	<context-param>
+   		<description>This is our partner password assigned by Interhome</description>
+    	<param-name>password</param-name>
+    	<param-value>110002</param-value>
+   	</context-param>
+   	<context-param>
+   		<description>This is URL of Interhome Web Services</description>
+    	<param-name>WSURL</param-name>
+    	<param-value>http://webservices.interhome.com:8980/partnerV3</param-value>
+   	</context-param>    	
 	<servlet>
        <servlet-name>controller</servlet-name>
        <servlet-class>com.affiliate.controllers.ControllerServlet</servlet-class>
+       <init-param>
+       	<description>This parameter contains list of public uri</description> 
+        <param-name>publicUriList</param-name> 
+        <param-value>/views/hello,/views/login,/views/index,/views/search,/views/result,/views/testWS</param-value> 
+       </init-param>
+       <init-param>
+       	<description>This parameter contains list of uri for already registered users</description> 
+        <param-name>restrictedUriList</param-name> 
+        <param-value>/views/personsList,/views/addComment</param-value> 
+       </init-param>        
    </servlet>
    <servlet-mapping>
        <servlet-name>controller</servlet-name>

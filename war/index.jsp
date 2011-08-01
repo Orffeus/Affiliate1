@@ -1,3 +1,6 @@
+<%@page import="com.interhome.webservice.WebServiceSoap"%>
+<%@page import="com.interhome.webservice.WebService"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" 
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,6 +25,12 @@
 		</div>
 		<div class = "colum_right float_l">
 			<p>Here you can put datastore to initial state: <a href="../index2.jsp">index2</a></p>
+<%
+			WebServiceSoap ws = new WebService().getWebServiceSoap();
+			String s = ws.checkServerHealth().getAvailability();
+%>
+			<p>Web service is <%= s %></p>
+			<p>Go to <a href="/views/testWS">testWS.jsp</a></p>
 		</div>
 </div>
 

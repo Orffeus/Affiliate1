@@ -13,19 +13,19 @@ public class Comment {
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Key key;
-	
+
 	@Persistent
 	private String content;
-	
+
 	@Persistent
 	private Date date;
-	
+
 	@Persistent
 	private Key person;
-	
+
 	@Persistent
 	private Key realty;
-	
+
 	public Comment(Key person, Key realty, String content) {
 		super();
 		this.content = content;

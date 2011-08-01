@@ -9,20 +9,20 @@ import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
 public class Person {
-	
+
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Key key;
 
 	@Persistent
 	private String firstName;
-	
+
 	@Persistent
 	private String lastName;
-	
+
 	@Persistent
 	private String email;
-	
+
 
 	public Person(String firstName, String lastName) {
 		super();

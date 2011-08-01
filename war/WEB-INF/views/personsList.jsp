@@ -46,24 +46,24 @@
 	<p>All persons with their comments</p>
 	<% 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-	    
+
 	 	List<Person> persons = null;
     	Query q = pm.newQuery(Person.class);
 		Query q2 = pm.newQuery(Comment.class);
 		q2.setFilter("person == :personParam");
-	
+
 	    try {
 			persons = (List<Person>) q.execute();
-		    
+
 		    for (Person p : persons) {
 	%>
 			<h2><%= p.getFirstName() %> <%= p.getLastName() %> said: </h2>
 	<% 
 
 				//q2.declareParameters("Key personParam");
-				
+
 				List<Comment> comments = (List<Comment>) q2.execute(p.getKey());
-				
+
 				for (Comment c : comments) {
 	%>		
 					<p><%= c.getContent() %></p>
@@ -82,18 +82,18 @@
 	You can return to the welcome page <a href="../index.jsp" >here</a>! 
 	<h2>Winzo said: </h2>
 	You can post comment <a href="/views/addComment" >here</a>!
-	
+
 	<h1>Comments List</h1>
 	<p>All comments once and again</p>
 	<% 
 		PersistenceManager pmc = PMF.get().getPersistenceManager();
-	    
+
 	 	List<Comment> comments = null;
     	Query qc = pmc.newQuery(Comment.class);
-	
+
 	    try {
 			comments = (List<Comment>) qc.execute();
-		    
+
 		    for (Comment c : comments) {
 	%>
 			<h2>comment: <%= c.getContent() %></h2>
@@ -106,13 +106,13 @@
 	        qc.closeAll();
 	    }
 	%>
-	
-	
+
+
 	<h1>Realty List</h1>
 	<p>All realty with their comments</p>
 	<% 
 		PersistenceManager pmr = PMF.get().getPersistenceManager();
-	    
+
 		List<Realty> realtys = null;
 		Query qr = pmr.newQuery(Realty.class);
 		Query qr2 = pmr.newQuery(Comment.class);
@@ -120,7 +120,7 @@
 
     	try {
 			realtys = (List<Realty>) qr.execute();
-	    
+
 	    	for (Realty r : realtys) {
 %>
 				<h2><%= r.getName() %></h2>
@@ -128,9 +128,9 @@
 				<p>Comments: </p>
 <% 
 				//qr2.declareParameters("Key realtyParam");
-			
+
 				comments = (List<Comment>) qr2.execute(r.getKey());
-			
+
 				for (Comment c : comments) {
 %>		
 					<p><%= c.getContent() %></p>
