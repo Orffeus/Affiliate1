@@ -1,5 +1,6 @@
 <%@page import="com.interhome.webservice.WebServiceSoap"%>
 <%@page import="com.interhome.webservice.WebService"%>
+<%@page import="com.interhome.webservice.CheckServerHealthResult"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" 
     pageEncoding="ISO-8859-1"%>
@@ -26,11 +27,17 @@
 		<div class = "colum_right float_l">
 			<p>Here you can put datastore to initial state: <a href="../index2.jsp">index2</a></p>
 <%
-			WebServiceSoap ws = new WebService().getWebServiceSoap();
-			String s = ws.checkServerHealth().getAvailability();
+			WebServiceSoap wss = new WebService().getWebServiceSoap();
+			CheckServerHealthResult cshr = wss.checkServerHealth();
+			String s = cshr.getAvailability();
+			String s2 = cshr.getMessages().getServerName();
+			
+			//String s = "testujeme";
 %>
 			<p>Web service is <%= s %></p>
+			<p>Server name is <%= s2 %></p>
 			<p>Go to <a href="/views/testWS">testWS.jsp</a></p>
+			<p>Go to old Search site<a href="/views/search_old">search_old.jsp</a></p>
 		</div>
 </div>
 

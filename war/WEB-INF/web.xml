@@ -25,7 +25,7 @@
        <init-param>
        	<description>This parameter contains list of public uri</description> 
         <param-name>publicUriList</param-name> 
-        <param-value>/views/hello,/views/login,/views/index,/views/search,/views/result,/views/testWS</param-value> 
+        <param-value>/views/hello,/views/login,/views/index,/views/search,/views/result,/views/testWS,/views/search_old,/views/result_old</param-value> 
        </init-param>
        <init-param>
        	<description>This parameter contains list of uri for already registered users</description> 

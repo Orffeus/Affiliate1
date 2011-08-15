@@ -19,7 +19,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.1
  * 
  */
-@WebServiceClient(name = "WebService", targetNamespace = "http://www.interhome.com/webservice", wsdlLocation = "http://webservices.interhome.com:8980/partnerV3/WebService.asmx?WSDL")
+@WebServiceClient(name = "WebService", targetNamespace = "http://www.interhome.com/webservice", wsdlLocation = "https://webservices.interhome.com:1084/partnerV3/WebService.asmx?WSDL")
 public class WebService
     extends Service
 {
@@ -34,7 +34,7 @@ public class WebService
             baseUrl = com.interhome.webservice.WebService.class.getResource(".");
             url = new URL(baseUrl, "http://webservices.interhome.com:8980/partnerV3/WebService.asmx?WSDL");
         } catch (MalformedURLException e) {
-            logger.warning("Failed to create URL for the wsdl Location: 'http://webservices.interhome.com:8980/partnerV3/WebService.asmx?WSDL', retrying as a local file");
+            logger.warning("Failed to create URL for the wsdl Location: 'https://webservices.interhome.com:1084/partnerV3/WebService.asmx?WSDL', retrying as a local file");
             logger.warning(e.getMessage());
         }
         WEBSERVICE_WSDL_LOCATION = url;

@@ -1,9 +1,5 @@
 <%@page import="com.affiliate.common.WebServiceFactory"%>
-<%@page import="com.interhome.webservice.WebServiceSoap"%>
-<%@page import="com.interhome.webservice.WebService"%>
-<%@page import="com.interhome.webservice.AccommodationDetailInputValue"%>
-<%@page import="com.interhome.webservice.AccommodationDetailReturnValue"%>
-<%@page import="com.interhome.webservice.WebServiceSoap"%>
+
 
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -21,29 +17,51 @@
 	<jsp:include page="/WEB-INF/common/header.jsp"/>
 </div>
 
-<%
+<% /*
 	String namespace = "";
 	
 	SOAPHeaderElement authHeader = new SOAPHEaderElement(new QName("ServiceAuthHeader"));
-	authHeader.setAttribute("xmlns", namespace);
+	authHeader.setAttribute("xmlns", namespace);*/
 %>
 
-<%
-	WebServiceSoap ws = (new WebServiceFactory()).createWebService("http://www.interhome.cz/cesk%C3%BD/pro+partnery/p%C5%99ihl%C3%A1sit", "CZ 481786", "110002");
+<%/*
+	WebServiceSoap ws = (new WebServiceFactory()).createWebService("http://www.interhome.com/webservice", "CZ 481786", "110002");
 	AccommodationDetailInputValue inputValue = new AccommodationDetailInputValue();
 	inputValue.setLanguageCode("DE");
 	inputValue.setAccommodationCode("CH0000.10.1");
 	
-	AccommodationDetailReturnValue returnValue = ws.accommodationDetail(inputValue);
+	AccommodationDetailReturnValue returnValue = ws.accommodationDetail(inputValue);*/
 %>
 
-<% if (returnValue==null) {%>
-<p> nasel null</p>
-<%}else{ %>
-<p>neco nasel</p>
-bedRooms: <%= returnValue.getBedRooms() %>
-country: <%= returnValue.getCountry() %>
-<%} %>
+<p>Prvni</p>
+<p>
+<%= 2 %>
+</p>
+
+<p>Druhy</p>
+<p>
+<%
+	WebServiceFactory wsf = new WebServiceFactory();
+	String s = wsf.createWebServiceSoap();
+
+	/*WebService w = new WebService();
+	WebServiceSoap ws = w.getWebServiceSoap();
+	
+
+	AccommodationDetailInputValue adiv = new AccommodationDetailInputValue();
+	adiv.setAccommodationCode("CH0001.100.1");
+	adiv.setLanguageCode("DE");
+	
+	String s = (new WebService()).getWebServiceSoap().accommodationDetail(adiv).getHouseName();*/
+	
+	//AccommodationDetailReturnValue adrv = ws.accommodationDetail(adiv);
+	//adrv.getRooms();
+%>
+<%= s %>
+</p>
+<p>
+
+</p>
 
 
 
