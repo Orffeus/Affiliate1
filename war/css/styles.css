@@ -5,6 +5,35 @@
 }
 
 
+#siteBody {
+	width: 950px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#imageText{
+	width: 200px; 
+	height: 100px;
+	position: absolute; 
+	left: 720px; 
+	top: 60px;
+}
+
+#imageText h2{
+	color: white;
+	}
+	
+#imageText p{
+	color: white;
+	}
+	
+
+#imageWindow{
+	width: 950px; 
+	height: 400px; 
+	position: relative;
+}
+
 
 
 

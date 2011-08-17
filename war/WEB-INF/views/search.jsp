@@ -49,21 +49,7 @@
 	siv.setCurrencyCode("CHF");
 	siv.setSalesOfficeCode("2020");
 	
-	/*
-	search.setDuration(5);
-	search.setPaxMin(1);
-	search.setPaxMax(100000);
-	search.setRoomsMax(10);
-	search.setBathroomsMax(10);
-	search.setBedroomsMax(10);
-	search.setQualityMax(5);
-	search.setDistanceToCenter(500);
-	search.setDistanceToGolfCourse(500);
-	search.setDistanceToLake(500);
-	search.setDistanceToSea(500);
-	search.setDistanceToSeaOrLake(500);
-	search.setDistanceToSkiLifts(5000);
-	*/
+
 	
 	
 	SearchReturnValue srv = service.getWebServiceSoap().search(siv);
@@ -80,6 +66,8 @@
 	%>
 		<h2><%= r.getAccommodationCode() %></h2>
 		<p><%= r.getBedRooms() %></p>
+		<p><a href="../views/result?ac=<%= r.getAccommodationCode()%>" >More details</a></p>
+				
 		<hr>
 	<% 
 	}
