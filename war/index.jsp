@@ -9,49 +9,123 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script type="text/javascript">
-function changeIt(objName)
+var c=0
+var s
+var q=0
+var timeVisible=8000;
+function photoGallery()
 {
-	//The image object accessed through its id we mentioned in the DIV block which is going to be visible currently
-	var obj = document.getElementById(objName);
-	
-	//An array that hold the IDs of images that we mentioned in their DIV blocks
-	var objId = new Array();
-	
-	//Storing the image IDs into the array starts here
-	objId[0] = "image1";
-	objId[1] = "image2";
-	objId[2] = "image3";
-	//Storing the image IDs into the array ends here
-	
-	//A counter variable going to use for iteration
-	var i;
-	
-	//A variable that can hold all the other object references other than the object which is going to be visible
-	var tempObj;
-	
-	//The following loop does the display of a single image based on its ID. The image whose ID we passed into this function will be the
-	//only image that is displayed rest of the images will be hidden based on their IDs and that part has been handled by the else part
-	//of the if statement within this loop.
-	for(i=0;i<objId.length;i++)
-	{
-		if(objName == objId[i])
-		{
-			obj.style.display = "block";
-		}
-		else
-		{
-			tempObj = document.getElementById(objId[i]);
-			tempObj.style.display = "none";	
-		}
+	if (!q){
+		fade('photo-gallery');
+		c=c+1
+		//s=setTimeout("photoGallery()",1000)
+	} else {
+		s=setTimeout("photoGallery()",timeVisible)
 	}
-	return;	
+
+}
+
+function changeImage(){
+	if (c%3==0){
+		document.getElementById('photo-gallery').src = "images/img4s.png";
+		document.getElementById('textOne').style.display = "block";
+		document.getElementById('textTwo').style.display = "none";
+		document.getElementById('textThree').style.display = "none";
+	}
+	if (c%3==1){
+		document.getElementById('photo-gallery').src = "images/img5s.png";
+		document.getElementById('textOne').style.display = "none";
+		document.getElementById('textTwo').style.display = "block";
+		document.getElementById('textThree').style.display = "none";
+	}
+	if (c%3==2){
+		document.getElementById('photo-gallery').src = "images/img6s.png";
+		document.getElementById('textOne').style.display = "none";
+		document.getElementById('textTwo').style.display = "none";
+		document.getElementById('textThree').style.display = "block";
+	}
+}
+
+//==================================================================
+var TimeToFade = 1000.0;
+
+function fade(eid)
+{
+  var element = document.getElementById(eid);
+  if(element == null)
+    return;
+   
+  if(element.FadeState == null)
+  {
+    if(element.style.opacity == null
+        || element.style.opacity == ''
+        || element.style.opacity == '1')
+    {
+      element.FadeState = 2;
+    }
+    else
+    {
+      element.FadeState = -2;
+    }
+  }
+   
+  if(element.FadeState == 1 || element.FadeState == -1)
+  {
+    //element.FadeState = element.FadeState == 1 ? -1 : 1;
+    //element.FadeTimeLeft = TimeToFade - element.FadeTimeLeft;
+  }
+  else
+  {
+    element.FadeState = element.FadeState == 2 ? -1 : 1;
+    element.FadeTimeLeft = TimeToFade;
+    setTimeout("animateFade(" + new Date().getTime() + ",'" + eid + "')", 33);
+  }  
+}
+
+function animateFade(lastTick, eid)
+{  
+  var curTick = new Date().getTime();
+  var elapsedTicks = curTick - lastTick;
+ 
+  var element = document.getElementById(eid);
+ 
+  if(element.FadeTimeLeft <= elapsedTicks)
+  {
+    element.style.opacity = element.FadeState == 1 ? '1' : '0';
+    element.style.filter = 'alpha(opacity = '
+        + (element.FadeState == 1 ? '100' : '0') + ')';
+    element.FadeState = element.FadeState == 1 ? 2 : -2;
+    
+    if (element.FadeState == -2){
+    	changeImage();
+    	fade('photo-gallery') ;
+    	s=setTimeout("photoGallery()",timeVisible)
+    }
+    
+    return;
+  }
+ 
+  element.FadeTimeLeft -= elapsedTicks;
+  var newOpVal = element.FadeTimeLeft/TimeToFade;
+  if(element.FadeState == 1)
+    newOpVal = 1 - newOpVal;
+
+  element.style.opacity = newOpVal;
+  element.style.filter = 'alpha(opacity = ' + (newOpVal*100) + ')';
+ 
+  setTimeout("animateFade(" + curTick + ",'" + eid + "')", 33);
+}
+
+function changeIt(cValue){
+	c = cValue;
+	fade('photo-gallery');
 }
 </script>
 <title>Home Page</title>
 <link rel="stylesheet" href="css/styles.css" type="text/css" />
 </head>
 <% session.setAttribute("site", "index"); %>
-<body>
+<body onLoad="photoGallery()">
 <div id ="siteBody">
 
 <div id="header">
@@ -60,38 +134,30 @@ function changeIt(objName)
 
 
 <div class ="content">
-	<div id="imageWindow">
-		<div id="image1" style="position: relative;">
-		<img src="images/rect3630.png" border="0" style="position: absolute;"/>
-		<img src="images/img4s.png" border="0" alt="one" />
-		<div id="imageText">
-			<h2>Praha</h2>
-			<p>Prague is the capital and largest city of the Czech Republic. Situated in the north-west of the country on the Vltava river, the city is home to about 1.3 million people, while its metropolitan area is estimated to have a population of over 2.3 million. The city has a temperate oceanic climate with warm summers and chilly winters.</p>
-		</div>
-		</div>
-	
-		<div id="image2" style="display:none; position: relative;">
-		<img src="images/rect3630.png" border="0" style="position: absolute;"/>
-		<img src="images/img5s.png" border="0" alt="two" />
-		<div id="imageText">
-			<h2>Praha</h2>
-			<p>Prague is the capital and largest city of the Czech Republic. Situated in the north-west of the country on the Vltava river, the city is home to about 1.3 million people, while its metropolitan area is estimated to have a population of over 2.3 million. The city has a temperate oceanic climate with warm summers and chilly winters.</p>
-		</div>
+	<div id="imageWindow" style="position: relative;background-color:Black;width:950px;height:400px;" onMouseOver="q=true;" onMouseOut="q=false;">
+		<img src="images/rect3632.png" id="fog" border="0" style="position: absolute; z-index:1; width:950px; height:400px;"/>
+		
+		<img src="images/img4s.png" id="photo-gallery" style="position: absolute;" width="950" height="400" >
+		<div id="imageText" style="z-index:2">
+			<div id="textOne">
+				<h2>Praha</h2>
+				<p>Prague is the capital and largest city of the Czech Republic. Situated in the north-west of the country on the Vltava river, the city is home to about 1.3 million people, while its metropolitan area is estimated to have a population of over 2.3 million. The city has a temperate oceanic climate with warm summers and chilly winters.</p>
+			</div>
+			<div id="textTwo" style="display:none;">
+				<h2>Nabrezi</h2>
+				<p>A zrovna po nem jede tramvaj.</p>
+			</div>
+			<div id="textThree" style="display:none;">
+				<h2>Tramvaj</h2>
+				<p>Pres prazdniny nam tramvaj nejezdi</p>
+			</div>
 		</div>
 		
-		<div id="image3" style="display:none; position: relative;">
-		<img src="images/rect3630.png" border="0" style="position: absolute;"/>
-		<img src="images/img6s.png" border="0" alt="three" />
-		<div id="imageText">
-			<h2>Praha</h2>
-			<p>Prague is the capital and largest city of the Czech Republic. Situated in the north-west of the country on the Vltava river, the city is home to about 1.3 million people, while its metropolitan area is estimated to have a population of over 2.3 million. The city has a temperate oceanic climate with warm summers and chilly winters.</p>
+		<div id="imageButton" style="position: absolute; z-index:2">
+			<a id="one" href="#" onclick="changeIt(0);" style="position: absolute; left: 680px; top: 370px;"><img src="images/imageButton.png" border="0"/></a>
+			<a id="two" href="#" onclick="changeIt(1);" style=" position: absolute; left: 710px; top: 370px;"><img src="images/imageButton.png" border="0"/></a>
+			<a id="three" href="#" onclick="changeIt(2);" style="position: absolute; left: 740px; top: 370px;"><img src="images/imageButton.png" border="0"/></a>
 		</div>
-		</div>
-		
-		
-		<a id="one" href="#" onclick="changeIt('image1');" style="position: absolute; left: 680px; top: 370px;"><img src="images/imageButton.png" border="0"/></a>
-		<a id="two" href="#" onclick="changeIt('image2');" style=" position: absolute; left: 710px; top: 370px;"><img src="images/imageButton.png" border="0"/></a>
-		<a id="three" href="#" onclick="changeIt('image3');" style="position: absolute; left: 740px; top: 370px;"><img src="images/imageButton.png" border="0"/></a>
 	</div>
 </div>
 
@@ -106,6 +172,8 @@ function changeIt(objName)
 		
 		</div>
 		<div class = "colum_right float_l">
+			<p>TEST page <a href="../test.jsp">test</a></p>
+			<p>TEST2 page <a href="../test2.jsp">test2</a></p>
 			<p>Here you can put datastore to initial state: <a href="../index2.jsp">index2</a></p>
 <%
 			WebServiceSoap wss = new WebService().getWebServiceSoap();
