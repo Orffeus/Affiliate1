@@ -8,119 +8,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<script type="text/javascript">
-var c=0
-var s
-var q=0
-var timeVisible=8000;
-function photoGallery()
-{
-	if (!q){
-		fade('photo-gallery');
-		c=c+1
-		//s=setTimeout("photoGallery()",1000)
-	} else {
-		s=setTimeout("photoGallery()",timeVisible)
-	}
+<script src="javascript/fadeImage.js" type="text/javascript"></script>
 
-}
-
-function changeImage(){
-	if (c%3==0){
-		document.getElementById('photo-gallery').src = "images/img4s.png";
-		document.getElementById('textOne').style.display = "block";
-		document.getElementById('textTwo').style.display = "none";
-		document.getElementById('textThree').style.display = "none";
-	}
-	if (c%3==1){
-		document.getElementById('photo-gallery').src = "images/img5s.png";
-		document.getElementById('textOne').style.display = "none";
-		document.getElementById('textTwo').style.display = "block";
-		document.getElementById('textThree').style.display = "none";
-	}
-	if (c%3==2){
-		document.getElementById('photo-gallery').src = "images/img6s.png";
-		document.getElementById('textOne').style.display = "none";
-		document.getElementById('textTwo').style.display = "none";
-		document.getElementById('textThree').style.display = "block";
-	}
-}
-
-//==================================================================
-var TimeToFade = 1000.0;
-
-function fade(eid)
-{
-  var element = document.getElementById(eid);
-  if(element == null)
-    return;
-   
-  if(element.FadeState == null)
-  {
-    if(element.style.opacity == null
-        || element.style.opacity == ''
-        || element.style.opacity == '1')
-    {
-      element.FadeState = 2;
-    }
-    else
-    {
-      element.FadeState = -2;
-    }
-  }
-   
-  if(element.FadeState == 1 || element.FadeState == -1)
-  {
-    //element.FadeState = element.FadeState == 1 ? -1 : 1;
-    //element.FadeTimeLeft = TimeToFade - element.FadeTimeLeft;
-  }
-  else
-  {
-    element.FadeState = element.FadeState == 2 ? -1 : 1;
-    element.FadeTimeLeft = TimeToFade;
-    setTimeout("animateFade(" + new Date().getTime() + ",'" + eid + "')", 33);
-  }  
-}
-
-function animateFade(lastTick, eid)
-{  
-  var curTick = new Date().getTime();
-  var elapsedTicks = curTick - lastTick;
- 
-  var element = document.getElementById(eid);
- 
-  if(element.FadeTimeLeft <= elapsedTicks)
-  {
-    element.style.opacity = element.FadeState == 1 ? '1' : '0';
-    element.style.filter = 'alpha(opacity = '
-        + (element.FadeState == 1 ? '100' : '0') + ')';
-    element.FadeState = element.FadeState == 1 ? 2 : -2;
-    
-    if (element.FadeState == -2){
-    	changeImage();
-    	fade('photo-gallery') ;
-    	s=setTimeout("photoGallery()",timeVisible)
-    }
-    
-    return;
-  }
- 
-  element.FadeTimeLeft -= elapsedTicks;
-  var newOpVal = element.FadeTimeLeft/TimeToFade;
-  if(element.FadeState == 1)
-    newOpVal = 1 - newOpVal;
-
-  element.style.opacity = newOpVal;
-  element.style.filter = 'alpha(opacity = ' + (newOpVal*100) + ')';
- 
-  setTimeout("animateFade(" + curTick + ",'" + eid + "')", 33);
-}
-
-function changeIt(cValue){
-	c = cValue;
-	fade('photo-gallery');
-}
-</script>
 <title>Home Page</title>
 <link rel="stylesheet" href="css/styles.css" type="text/css" />
 </head>
@@ -153,11 +42,31 @@ function changeIt(cValue){
 			</div>
 		</div>
 		
-		<div id="imageButton" style="position: absolute; z-index:2">
+		<div id="imageButton" style="display: none; position: absolute; z-index:2">
 			<a id="one" href="#" onclick="changeIt(0);" style="position: absolute; left: 680px; top: 370px;"><img src="images/imageButton.png" border="0"/></a>
 			<a id="two" href="#" onclick="changeIt(1);" style=" position: absolute; left: 710px; top: 370px;"><img src="images/imageButton.png" border="0"/></a>
 			<a id="three" href="#" onclick="changeIt(2);" style="position: absolute; left: 740px; top: 370px;"><img src="images/imageButton.png" border="0"/></a>
 		</div>
+	</div>
+	
+	<div id="newsWindow" style="position: relative; background-color:#DDDDDD;width:950px;height:478px;">
+		<div id="newOne" style="position: absolute; left:26px; top:26px; background-color:red;width:440px;height:200px;">
+		
+		</div>
+		<div id="newTwo" style="position: absolute; left:484px; top:26px; background-color:green;width:440px;height:200px;">
+		
+		</div>
+		<div id="newThree" style="position: absolute; left:26px; top:252px; background-color:red;width:440px;height:200px;">
+		
+		</div>
+		<div id="newFour" style="position: absolute; left:484px; top:252px; background-color:green;width:440px;height:200px;">
+		
+		</div>
+	</div>
+	
+	<div id="bottom" style="background-color:#888888;width:950px;height:100px;">
+	
+	
 	</div>
 </div>
 

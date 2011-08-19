@@ -1,5 +1,6 @@
 <%@ page import="com.affiliate.common.HeaderHandlerResolver" %>
 <%@ page import="com.interhome.webservice.WebService" %>
+<%@ page import="com.interhome.webservice.WebServiceSoap" %>
 <%@ page import="com.interhome.webservice.SearchInputValue" %>
 <%@ page import="com.interhome.webservice.SearchReturnValue" %>
 <%@ page import="com.interhome.webservice.SearchResultItem" %>
@@ -18,12 +19,18 @@
 <link rel="stylesheet" href="../../css/styles.css" type="text/css" />
 </head>
 <% session.setAttribute("site", "search"); %>
+<%
+	int pageSize = 5;
+%>
 <body>
+<div id ="siteBody">
 
 <div id="header">
 	<jsp:include page="/WEB-INF/common/header.jsp"/>
 </div>
 
+<div id="searchBody" style="background-color:#DDDDDD; height:<%= pageSize*(180+17)+17 %>px;">
+<div id="results" style="float:left; background-color:#444444; width:550px; height:<%= pageSize*(180+17)+17 %>px;">
 <%
 	WebService service;
 	
@@ -43,7 +50,7 @@
 	
 	SearchInputValue siv = new SearchInputValue();
 	siv.setPage(1);
-	siv.setPageSize(4);
+	siv.setPageSize(pageSize);
 	//search.setCountryCode("SP");
 	siv.setLanguageCode("DE");
 	siv.setCurrencyCode("CHF");
@@ -56,23 +63,70 @@
 	ArrayOfSearchResultItem aosri = srv.getItems();
 	List<SearchResultItem> sri = aosri.getSearchResultItem();
 	
-	%>
-	<p>search return value count: <%= srv.getResultCount() %> </p>
-	<p>is search return item empty: <%= sri.isEmpty() %> </p>
 	
-	<%
+	if (sri.isEmpty() && srv.getResultCount()>0){
+		%>
+		<p>Please, try it later. Database is not working.</p>	
+		<%
+	}
+	if (srv.getResultCount()==0){
+		%>
+		<p>No results found.</p>	
+		<%
+	}
 	
 	for (SearchResultItem r : sri) {
 	%>
-		<h2><%= r.getAccommodationCode() %></h2>
-		<p><%= r.getBedRooms() %></p>
-		<p><a href="../views/result?ac=<%= r.getAccommodationCode()%>" >More details</a></p>
+		<div id="oneResult" style="background-color:green; width:500px; height:180px;">
+		
+			<div id="oneImage" style="float:left;">
+				<img src="<%= r.getPicture() %>" alt="Picture" style="width:175px; height:141px;">
+				<p style="position: relative; top: -12px"><%= r.getAccommodationCode() %><p>
+			</div>
+			<div id="oneInfo" style="position: relative; left:10px; height:141px;">
+				<p><%= r.getPlace() %> / <%= r.getRegion() %> / <%= r.getCountry() %><br>
+				<% 
 				
-		<hr>
+				String typeOfBuilding = r.getType();
+				if (typeOfBuilding.equals("h")){
+					typeOfBuilding="House";
+				}
+				if (typeOfBuilding.equals("a")){
+					typeOfBuilding="Apartment";
+				}
+				if (typeOfBuilding.equals("t")){
+					typeOfBuilding="detached house";
+				}
+				%> 
+				<%= typeOfBuilding %>
+				<%
+				int quality = r.getQuality();
+				for (int i=1; i<=quality; i++){
+				%>
+					<img src="../../images/qualityStar.png" style="width:10px; height:10px;">
+				<%
+				}
+				%><br>
+				Bed rooms: <%= r.getBedRooms() %> /	rooms: <%= r.getRooms() %> <br>
+				<a href="../views/result?ac=<%= r.getAccommodationCode()%>" >More details</a></p>
+			</div>
+		</div>
 	<% 
 	}
 	
 %>
+</div>
 
+<div id="searchTool" style="float:right; background-color:red; width:200px; height:400px; left:600px;">
+	<p>Search Tool</p>
+</div>
+</div>
+
+
+<div id="bottom" style="background-color:#888888;width:950px;height:100px;">
+<p>bottom text</p>
+</div>
+
+</div>
 </body>
 </html>

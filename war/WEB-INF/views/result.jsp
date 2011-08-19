@@ -32,7 +32,7 @@
 	
 	//Just for simple switch between PRODUCTIVE and TEST server
 	//HINT: Seach does not get full information on TEST server
-	if (false) {
+	if (true) {
 		URL baseUrl;
 		baseUrl = com.interhome.webservice.WebService.class.getResource(".");
 		URL url = new URL(baseUrl, "https://webservices.interhome.com:1084/partnerV3/WebService.asmx?WSDL");
