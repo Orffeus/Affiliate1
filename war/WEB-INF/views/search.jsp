@@ -108,6 +108,18 @@
 				}
 				%><br>
 				Bed rooms: <%= r.getBedRooms() %> /	rooms: <%= r.getRooms() %> <br>
+				More information:
+				<%
+					if (r.isAircondition()){ 
+						out.print("<img src=\"../../images/miniAirCondition.png\" title=\"Aircondition\" style=\"width:20px; height:20px;\">"); 
+					}
+					if (r.isWashingmachine()){ 
+						out.print("<img src=\"../../images/miniWashingMachine.png\" title=\"Washingmachine\" style=\"width:20px; height:20px;\">"); 
+					}
+					if (r.isDishwasher() ){ 
+						out.print("<img src=\"../../images/miniDishWasher.png\" title=\"Dishwasher\" style=\"width:20px; height:20px;\">"); 
+					}
+				%><br>
 				<a href="../views/result?ac=<%= r.getAccommodationCode()%>" >More details</a></p>
 			</div>
 		</div>
