@@ -23,14 +23,18 @@
 	int pageSize = 5;
 %>
 <body>
-<div id ="siteBody">
+<div id="siteBody">
 
 <div id="header">
 	<jsp:include page="/WEB-INF/common/header.jsp"/>
 </div>
 
-<div id="searchBody" style="background-color:#DDDDDD; height:<%= pageSize*(180+17)+17 %>px;">
-<div id="results" style="float:left; background-color:#444444; width:550px; height:<%= pageSize*(180+17)+17 %>px;">
+<div id="searchBody" style="background-color:#DDDDDD; ">
+	<div id="searchTool" style="float:right; background-color:red; width:200px; height:400px;">
+		<span>Search Tool</span>
+	</div>
+	<div id="results" style="background-color:#444444; width:670px;">
+		<br>
 <%
 	WebService service;
 	
@@ -66,25 +70,26 @@
 	
 	if (sri.isEmpty() && srv.getResultCount()>0){
 		%>
-		<p>Please, try it later. Database is not working.</p>	
+		<span>Please, try it later. Database is not working.</span><br>	
 		<%
 	}
 	if (srv.getResultCount()==0){
 		%>
-		<p>No results found.</p>	
+		<span>No results found.</span><br>	
 		<%
 	}
 	
 	for (SearchResultItem r : sri) {
 	%>
-		<div id="oneResult" style="background-color:green; width:500px; height:180px;">
+		<div id="oneResult" style="margin-left: 10px; margin-bottom:10px; background-color:green; width:650px; height:170px;" onmouseover="style.backgroundColor='#84DFC1';" onmouseout="style.backgroundColor='green'">
 		
 			<div id="oneImage" style="float:left;">
-				<img src="<%= r.getPicture() %>" alt="Picture" style="width:175px; height:141px;">
-				<p style="position: relative; top: -12px"><%= r.getAccommodationCode() %><p>
+				<img src="<%= r.getPicture() %>" alt="Picture" style="width:175px; height:141px;"><br>
+				<span style="position: relative;"><%= r.getAccommodationCode() %></span>
+				<span style="position: relative; left:450px;"><a href="../views/result?ac=<%= r.getAccommodationCode()%>" >More details</a></span>
 			</div>
 			<div id="oneInfo" style="position: relative; left:10px; height:141px;">
-				<p><%= r.getPlace() %> / <%= r.getRegion() %> / <%= r.getCountry() %><br>
+				<span><%= r.getPlace() %> / <%= r.getRegion() %> / <%= r.getCountry() %><br>
 				<% 
 				
 				String typeOfBuilding = r.getType();
@@ -95,7 +100,7 @@
 					typeOfBuilding="Apartment";
 				}
 				if (typeOfBuilding.equals("t")){
-					typeOfBuilding="detached house";
+					typeOfBuilding="Detached house";
 				}
 				%> 
 				<%= typeOfBuilding %>
@@ -107,8 +112,8 @@
 				<%
 				}
 				%><br>
-				Bed rooms: <%= r.getBedRooms() %> /	rooms: <%= r.getRooms() %> <br>
-				More information:
+				<%= r.getBedRooms() %> Bed rooms  /	<%= r.getRooms() %> Rooms <br>
+				More information: <br>
 				<%
 					if (r.isAircondition()){ 
 						out.print("<img src=\"../../images/miniAirCondition.png\" title=\"Aircondition\" style=\"width:20px; height:20px;\">"); 
@@ -119,24 +124,21 @@
 					if (r.isDishwasher() ){ 
 						out.print("<img src=\"../../images/miniDishWasher.png\" title=\"Dishwasher\" style=\"width:20px; height:20px;\">"); 
 					}
-				%><br>
-				<a href="../views/result?ac=<%= r.getAccommodationCode()%>" >More details</a></p>
+				%><br></span>
 			</div>
 		</div>
 	<% 
 	}
 	
 %>
-</div>
+		<br style="margin-bottom:-10px">
+	</div>
 
-<div id="searchTool" style="float:right; background-color:red; width:200px; height:400px; left:600px;">
-	<p>Search Tool</p>
-</div>
 </div>
 
 
 <div id="bottom" style="background-color:#888888;width:950px;height:100px;">
-<p>bottom text</p>
+	<span>bottom text</span>
 </div>
 
 </div>

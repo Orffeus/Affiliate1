@@ -21,7 +21,6 @@
 	<jsp:include page="/WEB-INF/common/header.jsp"/>
 </div>
 
-
 <div class ="content">
 	<div id="imageWindow" style="position: relative;background-color:Black;width:950px;height:400px;" onMouseOver="q=true;" onMouseOut="q=false;">
 		<img src="images/rect3632.png" id="fog" border="0" style="position: absolute; z-index:1; width:950px; height:400px;"/>
