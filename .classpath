@@ -2,12 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine (1)"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/winzo/Dokumenty/web/knihovny/odTomase/axisLibs/axis.jar"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/winzo/Dokumenty/web/knihovny/odTomase/axisLibs/commons-discovery-0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/winzo/Dokumenty/web/knihovny/odTomase/axisLibs/javax.wsdl_1.6.2.v201005080631.jar"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/winzo/Dokumenty/web/knihovny/odTomase/axisLibs/jaxrpc.jar"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/winzo/Dokumenty/web/knihovny/odTomase/axisLibs/org.apache.commons.logging_1.0.4.v201005080501.jar"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/winzo/Dokumenty/web/knihovny/odTomase/axisLibs/saaj.jar"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine (2)"/>
+	<classpathentry kind="lib" path="D:/Workspaces/jxl.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

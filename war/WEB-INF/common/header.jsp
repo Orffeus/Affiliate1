@@ -24,6 +24,7 @@
 	<li><a href="/views/personsList" <% if(site.equals("personsList")) out.print("class=\"current\""); %> >Persons List</a></li>
 	<li><a href="/views/hello" <% if(site.equals("hello")) out.print("class=\"current\""); %> >Hello</a></li>
 	<li><a href="/views/search" <% if(site.equals("search")) out.print("class=\"current\""); %> >Search</a></li>
+	<li><a href="/views/select" <% if(site.equals("select")) out.print("class=\"current\""); %> >Select</a></li>
 	<%
 	if (user != null) {
 	%>
