@@ -1,49 +1,54 @@
 package com.affiliate.entities;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @PersistenceCapable
 public class Region {
-
-	@PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Key key;
 	
-	@Persistent
-	private Key country;
+	@PrimaryKey
+    @Persistent
+    private Key key;
 	
 	@Persistent
 	private String regionCode;
 	
 	@Persistent
 	private String regionName;
+	
+	@Persistent
+	private String countryCode;
+	
+	@Persistent
+	private String languageCode;	
 
-	public Region(Key country, String regionCode, String regionName) {
+	public Region(String languageCode, String countryCode, String regionCode, String regionName) {
 		super();
-		this.country = country;
+		this.languageCode = languageCode;
+		this.countryCode = countryCode;
 		this.regionCode = regionCode;
 		this.regionName = regionName;
+		this.setKey(KeyFactory.createKey(Region.class.getSimpleName(), languageCode + "." + countryCode + 
+				"." + regionCode));
+	}
+	
+	public String getCountryCode() {
+		return countryCode;
 	}
 
-	public Key getKey() {
-		return key;
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 
-	public void setKey(Key key) {
-		this.key = key;
+	public String getLanguageCode() {
+		return languageCode;
 	}
 
-	public Key getCountry() {
-		return country;
-	}
-
-	public void setCountry(Key country) {
-		this.country = country;
+	public void setLanguageCode(String languageCode) {
+		this.languageCode = languageCode;
 	}
 
 	public String getRegionCode() {
@@ -60,5 +65,13 @@ public class Region {
 
 	public void setRegionName(String regionName) {
 		this.regionName = regionName;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+
+	public Key getKey() {
+		return key;
 	}
 }

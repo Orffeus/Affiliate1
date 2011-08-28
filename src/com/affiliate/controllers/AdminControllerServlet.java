@@ -3,16 +3,13 @@ package com.affiliate.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.affiliate.common.ExcelReader;
-import com.affiliate.entities.Comment;
 import com.affiliate.entities.Country;
 import com.affiliate.entities.LanguageCode;
 import com.affiliate.entities.Place;
@@ -89,11 +86,15 @@ public class AdminControllerServlet extends HttpServlet {
 		fillLanguageCodes(er, languageCodes);
 		pm.makePersistentAll(languageCodes);
 		
-		// next read coutries for each country code
-		for (LanguageCode lc : languageCodes) {
-			fillCountries(er, lc, countries);
-		}
+		// next read coutries for each language code
+		for (LanguageCode lc : languageCodes)
+			fillCountries(er, lc.getLanguageCode(), countries);
 		pm.makePersistentAll(countries);
+		
+		// next read regions for each country code
+		for (LanguageCode lc : languageCodes)
+			fillRegions(er, lc.getLanguageCode(), regions, pm);
+		pm.makePersistentAll(regions);
 		
 		pm.close();
         qlc.closeAll();
@@ -104,15 +105,27 @@ public class AdminControllerServlet extends HttpServlet {
 		resp.sendRedirect("/admin/index");	
 	}
 
-	private void fillCountries(ExcelReader er, LanguageCode lc, List<Country> countries) {		
-		String inputFile = getServletConfig().getInitParameter("countryXls") + lc.getLanguageCode() + ".xls";
+	private void fillRegions(ExcelReader er, String lc, List<Region> regions, PersistenceManager pm) {
+		String inputFile = getServletConfig().getInitParameter("regionXls") + lc + ".xls";
+		er.setInputFile(inputFile);
+		try {
+			er.readRegions(lc, regions);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("It is not possible to read regions file.");
+		}
+	}
+
+	private void fillCountries(ExcelReader er, String lc, List<Country> countries) {		
+		String inputFile = getServletConfig().getInitParameter("countryXls") + lc + ".xls";
 		er.setInputFile(inputFile);
 		try {
 			er.readCountries(lc, countries);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("It is not possible to read language codes file.");
+			System.out.println("It is not possible to read countries file.");
 		}
 	}
 
