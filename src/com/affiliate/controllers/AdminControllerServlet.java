@@ -96,6 +96,11 @@ public class AdminControllerServlet extends HttpServlet {
 			fillRegions(er, lc.getLanguageCode(), regions, pm);
 		pm.makePersistentAll(regions);
 		
+		// next read regions for each country code
+		for (LanguageCode lc : languageCodes)
+			fillPlaces(er, lc.getLanguageCode(), places, pm);
+		pm.makePersistentAll(places);		
+		
 		pm.close();
         qlc.closeAll();
         qc.closeAll();
@@ -103,6 +108,19 @@ public class AdminControllerServlet extends HttpServlet {
         qp.closeAll();
 
 		resp.sendRedirect("/admin/index");	
+	}
+
+	private void fillPlaces(ExcelReader er, String lc,
+			List<Place> places, PersistenceManager pm) {
+		String inputFile = getServletConfig().getInitParameter("placeXls") + lc + ".xls";
+		er.setInputFile(inputFile);
+		try {
+			er.readPlaces(lc, places);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("It is not possible to read places file.");
+		}
 	}
 
 	private void fillRegions(ExcelReader er, String lc, List<Region> regions, PersistenceManager pm) {

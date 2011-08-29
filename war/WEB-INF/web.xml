@@ -57,7 +57,12 @@
        	<description>This parameter contains path to InterhomeRegion.xls file</description> 
         <param-name>regionXls</param-name> 
         <param-value>WEB-INF/resources/InterhomeRegion</param-value> 
-       </init-param>       
+       </init-param>         
+       <init-param>
+       	<description>This parameter contains path to InterhomePlace.xls file</description> 
+        <param-name>placeXls</param-name> 
+        <param-value>WEB-INF/resources/InterhomePlace</param-value> 
+       </init-param>     
        <init-param>
        	<description>This parameter contains path to AffiliateLanguageCode.xls file</description> 
         <param-name>languageCodeXls</param-name> 

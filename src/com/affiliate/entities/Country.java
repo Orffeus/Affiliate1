@@ -27,7 +27,7 @@ public class Country {
 		this.languageCode = languageCode;
 		this.countryCode = countryCode;
 		this.countryName = countryName;
-		this.setKey(KeyFactory.createKey(Country.class.getSimpleName(), languageCode + "." + countryCode));
+		this.key = KeyFactory.createKey(Country.class.getSimpleName(), languageCode + "." + countryCode);
 	}
 
 	public String getLanguageCode() {

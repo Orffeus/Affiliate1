@@ -31,51 +31,116 @@
 	</div>
 	
 	<% 
+		String languageCode = session.getAttribute("languageCode").toString();
+		String countryCode = request.getParameter("countryCode");
+		String regionCode = request.getParameter("regionCode");
+		String placeCode = request.getParameter("placeCode");
+	
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
 		// find countries
 		Query qc = pm.newQuery(Country.class, "this.languageCode == languageCodeParam");
 		qc.declareParameters("String languageCodeParam");
-		List<Country> countries = (List<Country>) qc.execute(session.getAttribute("languageCode"));
+		List<Country> countries = (List<Country>) qc.execute(languageCode);
 	%>
 	<form>
 		<select name="country" onChange="location.href='select?countryCode='+this.value;">
-			<option selected="selected">--Vyber zemi--</option>
+			<option>--Vyber zemi--</option>
 		<% 
 			for (Country c : countries) {
 		%>
-			<option value="<%= c.getCountryCode() %>"><%= c.getCountryName() %></option>
 		<% 
+				if (c.getCountryCode().equals(countryCode)) {
+		%>
+					<option selected="selected" value="<%= c.getCountryCode() %>">
+						<%= c.getCountryName() %>
+					</option>
+		<% 
+				} else {
+		%>	
+					<option value="<%= c.getCountryCode() %>">
+						<%= c.getCountryName() %>
+					</option>				
+		<% 
+				}
 			}
 		%>
 		</select>
 		<% 
 			// find regions
-			String countryCode = request.getParameter("countryCode");
 			List<Region> regions = null;
-			Query qr = pm.newQuery(Region.class, "this.countryCode == countryCodeParam");
-			qr.declareParameters("String countryCodeParam");
+			Query qr = pm.newQuery(Region.class, "this.languageCode == languageCodeParam && this.countryCode == countryCodeParam");
+			qr.declareParameters("String languageCodeParam, String countryCodeParam");
 			if (countryCode != null) {
-				regions = (List<Region>) qr.execute(request.getParameter("countryCode"));
+				regions = (List<Region>) qr.execute(languageCode, countryCode);
 			}
 		%>
-		<select name="region">
+		<select name="region" onChange="location.href='select?countryCode=<%= countryCode %>&regionCode='+this.value;">
 			<option selected="selected">--Vyber region--</option>
 		<% 
 			if (regions != null) {
-				for (Region r : regions) {
+				for (Region r : regions) {		
 		%>
-					<option value="<%= r.getRegionCode() %>"><%= r.getRegionName() %></option>
 		<% 
+					if (r.getRegionCode().equals(regionCode)) {
+		%>
+						<option selected="selected" value="<%= r.getRegionCode() %>">
+							<%= r.getRegionName() %>
+						</option>
+		<% 
+					} else {
+		%>	
+						<option value="<%= r.getRegionCode() %>">
+							<%= r.getRegionName() %>
+						</option>				
+		<% 
+					}		
 				}
 			}
 		%>			
 		</select>
+		<% 
+			// find places
+			List<Place> places = null;
+			Query qp = pm.newQuery(Place.class, "this.languageCode == languageCodeParam" +  
+					"&& this.countryCode == countryCodeParam && this.regionCode == regionCodeParam");
+			qp.declareParameters("String languageCodeParam, String countryCodeParam" + 
+					", String regionCodeParam");
+			if (countryCode != null && regionCode != null) {
+				places = (List<Place>) qp.execute(languageCode, countryCode, regionCode);
+			}
+		%>
+		<select name="place" onChange="location.href='select?countryCode=
+			<%= countryCode %>&regionCode=<%= regionCode %>&placeCode='+this.value;">
+			<option selected="selected">--Vyber místo--</option>
+		<% 
+			if (places != null) {
+				for (Place p : places) {		
+		%>
+		<% 
+					if (p.getPlaceCode().equals(placeCode)) {
+		%>
+						<option selected="selected" value="<%= p.getPlaceCode() %>">
+							<%= p.getPlaceName() %>
+						</option>
+		<% 
+					} else {
+		%>	
+						<option value="<%= p.getPlaceCode() %>">
+							<%= p.getPlaceName() %>
+						</option>				
+		<% 
+					}		
+				}
+			}
+		%>			
+		</select>		
 	</form>
 	<%
 	    pm.close();
 	    qc.closeAll();
 		qr.closeAll();
+		qp.closeAll();
 	%>
 	
 	<div id="bottom" style="background-color:#888888;width:950px;height:100px;">

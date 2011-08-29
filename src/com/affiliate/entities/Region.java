@@ -31,8 +31,8 @@ public class Region {
 		this.countryCode = countryCode;
 		this.regionCode = regionCode;
 		this.regionName = regionName;
-		this.setKey(KeyFactory.createKey(Region.class.getSimpleName(), languageCode + "." + countryCode + 
-				"." + regionCode));
+		this.key = KeyFactory.createKey(Region.class.getSimpleName(), languageCode + "." + countryCode + 
+				"." + regionCode);
 	}
 	
 	public String getCountryCode() {

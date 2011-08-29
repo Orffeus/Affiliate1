@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 import com.affiliate.entities.Country;
 import com.affiliate.entities.LanguageCode;
+import com.affiliate.entities.Place;
 import com.affiliate.entities.Region;
 
 import jxl.Cell;
@@ -70,6 +71,28 @@ public class ExcelReader {
 				Cell cell2 = sheet.getCell(2, i);				
 				Region r = new Region(languageCode, cell0.getContents(), cell1.getContents(), cell2.getContents());
 				regions.add(r);
+			}
+		} catch (BiffException e) {
+			e.printStackTrace();
+		}	
+	}
+
+	public void readPlaces(String languageCode, List<Place> places) throws IOException {
+		File inputWorkbook = new File(inputFile);
+		Workbook w;
+		try {
+			w = Workbook.getWorkbook(inputWorkbook);
+			// Get the first sheet
+			Sheet sheet = w.getSheet(0);
+			// Loop over columns and lines
+			for (int i = 1; i < sheet.getRows(); i++) {
+				Cell cell0 = sheet.getCell(0, i);
+				Cell cell1 = sheet.getCell(1, i);
+				Cell cell2 = sheet.getCell(2, i);	
+				Cell cell3 = sheet.getCell(3, i);				
+				Place p = new Place(languageCode, cell0.getContents(), 
+						cell1.getContents(), cell2.getContents(), cell3.getContents());
+				places.add(p);
 			}
 		} catch (BiffException e) {
 			e.printStackTrace();
