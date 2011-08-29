@@ -72,6 +72,14 @@
    <servlet-mapping>
        <servlet-name>adminController</servlet-name>
        <url-pattern>/admin/*</url-pattern>
+   </servlet-mapping> 
+   <servlet>
+       <servlet-name>RegionManager</servlet-name>
+       <servlet-class>com.affiliate.controllers.RegionManager</servlet-class>
+   </servlet>
+   <servlet-mapping>
+       <servlet-name>RegionManager</servlet-name>
+       <url-pattern>/getRegion</url-pattern>
    </servlet-mapping>   
    <welcome-file-list>
       <welcome-file>index.jsp</welcome-file>
