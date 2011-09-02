@@ -44,9 +44,16 @@
 	<jsp:include page="/WEB-INF/common/header.jsp"/>
 </div>
 
-<div id="searchBody" style="background-color:#DDDDDD; ">
-	<div id="searchTool" style="float:right; background-color:red; width:200px; height:400px;">
-		<jsp:include page="/WEB-INF/common/searchTool.jsp"/>
+<div id="searchBody" style="background-color:#BDEDFF; ">
+	<div id="searchTool" style="position:relative; top:20px; right:10px; float:right; width:220px;">
+		<img src="../../images/searchToolTop.png" style="width:220px; height:15px;">
+		<div style="background-image:URL('../../images/searchToolMid.png'); background-repeat:repeat-y; width:220px;" >
+			<div style="margin-left:20px;">
+			<jsp:include page="/WEB-INF/common/searchTool.jsp"/>
+			</div>
+			<br />
+		</div>
+		<img src="../../images/searchToolBot.png" style="width:220px; height:15px;">
 	</div>
 	<div id="results" style="background-color:#BDEDFF; width:710px;">
 		<br>
@@ -98,6 +105,11 @@
 	if (request.getParameter("barthrooms")!=null) {
 		siv.setBathroomsMin(Integer.parseInt(request.getParameter("bedrooms")));
 	}
+	if (request.getParameter("quality")!=null) {
+		siv.setQualityMin(Integer.parseInt(request.getParameter("quality")) / 10);
+		siv.setQualityMax(Integer.parseInt(request.getParameter("quality")) % 10);
+	}
+	
 
 	//Facilities
 	ArrayOfFacilities aof = new ArrayOfFacilities();

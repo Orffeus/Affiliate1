@@ -25,12 +25,12 @@
        <init-param>
        	<description>This parameter contains list of public uri</description> 
         <param-name>publicUriList</param-name> 
-        <param-value>/views/hello,/views/login,/views/index,/views/search,/views/result,/views/testWS,/views/search_old,/views/result_old,/views/select,/views/regionSelectDropdown,/views/placeSelectDropdown</param-value> 
+        <param-value>/views/hello,/views/login,/views/index,/views/search,/views/result,/views/testWS,/views/search_old,/views/result_old,/views/select,/views/regionSelectDropdown,/views/placeSelectDropdown,/test/example,/views/addComment</param-value> 
        </init-param>
        <init-param>
        	<description>This parameter contains list of uri for already registered users</description> 
         <param-name>restrictedUriList</param-name> 
-        <param-value>/views/personsList,/views/addComment</param-value> 
+        <param-value>/views/personsList</param-value> 
        </init-param>        
    </servlet>
    <servlet-mapping>
@@ -38,11 +38,11 @@
        <url-pattern>/views/*</url-pattern>
    </servlet-mapping>   
    <servlet>
-       <servlet-name>send</servlet-name>
+       <servlet-name>SendComment</servlet-name>
        <servlet-class>com.affiliate.controllers.SendComment</servlet-class>
    </servlet>
    <servlet-mapping>
-       <servlet-name>send</servlet-name>
+       <servlet-name>SendComment</servlet-name>
        <url-pattern>/send</url-pattern>
    </servlet-mapping>
    <servlet>

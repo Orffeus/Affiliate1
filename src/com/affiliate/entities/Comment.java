@@ -31,6 +31,7 @@ public class Comment {
 		this.content = content;
 		this.person = person;
 		this.realty = realty;
+		this.date = new Date();
 	}
 
 	public void setKey(Key key) {

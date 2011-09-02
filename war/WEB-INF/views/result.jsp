@@ -18,13 +18,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="../../css/styles.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="../../javascript/jquery-1.6.2.js"></script>
+<script language="javascript" type="text/javascript" src="../../javascript/resultImageGallery.js"></script>
+<script language="javascript" type="text/javascript" src="../../javascript/postComment.js" ></script>
 </head>
 <% session.setAttribute("site", "search"); %>
 <body>
 
-<div id="header">
-	<jsp:include page="/WEB-INF/common/header.jsp"/>
-</div>
+<div id="siteBody">
+
+	<div id="header">
+		<jsp:include page="/WEB-INF/common/header.jsp"/>
+	</div>
 
 <%
 
@@ -49,11 +54,52 @@
 	adiv.setLanguageCode("DE");
 	
 	AccommodationDetailReturnValue adrv = service.getWebServiceSoap().accommodationDetail(adiv);
+	
+	List<String> pictures = adrv.getPictures().getString();
 %>
+	<div class="imageGallery">
+		<div id="mainImage">
+				<img src="<%= pictures.isEmpty() ? "#" : pictures.get(0) %>" style="width:280px; height:226px;" />
+		</div>
+		<table>
+		<tr>
+		<td>
+			<img class="prev" src="../../images/prev.png" style="width:25px; height:50px;" />
+		</td>
+		<td>
+			<div class="imageGalleryList" style="width:300px; height:100px; overflow:hidden; " >
+				<table class="imageGalleryTable" style="position:relative; left:0px;" >
+					<tr>
+					<%
+					for(String p : pictures){
+					%>
+					<td>
+						<img class="imageView" src="<%= p %>" style="width:120px; height=100px;" />	
+					</td>
+					<%
+					}
+					%>
+					</tr>
+				</table>
+			</div>
+		</td>
+		<td>
+			<img class="next" src="../../images/next.png" style="width:25px; height:50px;" />
+		</td>
+		</tr>
+		</table>
+	</div>
+
+
+
 <p>AccommodationCode: <%= adrv.getAccommodationCode() %></p>
 <p>HouseName: <%= adrv.getHouseName() %></p>
 <p>Place: <%= adrv.getPlace() %></p>
-<img src="<%= adrv.getPictures().getString().get(0) %>" alt="Picture">
 
+	<div id="comment">
+		<jsp:include page="/WEB-INF/views/addComment.jsp"/>
+	</div>
+
+</div>
 </body>
 </html>

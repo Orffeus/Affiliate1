@@ -18,11 +18,13 @@ public class Realty {
 	
 	@Persistent
 	private String name;
+	
+	@Persistent
+	private String accommodationCode;
 
-	public Realty(String name, String info) {
+	public Realty(String accommodationCode) {
 		super();
-		this.name = name;
-		this.info = info;
+		this.accommodationCode = accommodationCode;
 	}
 	
 	public Key getKey() {
@@ -31,6 +33,14 @@ public class Realty {
 
 	public void setKey(Key key) {
 		this.key = key;
+	}
+	
+	public String getAccommodationCode() {
+		return accommodationCode;
+	}
+
+	public void setAccommodationCode(String accommodationCode) {
+		this.accommodationCode = accommodationCode;
 	}
 
 	public String getInfo() {

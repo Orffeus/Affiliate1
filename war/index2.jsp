@@ -44,9 +44,11 @@
 	    	persons.add(p);
 	    	pm.makePersistentAll(persons);
 	    	
-	    	r = new Realty("Hajovna", "Vsude klid");
+	    	r = new Realty("Hajovna");
+	    	r.setInfo("vsude klid");
 	    	realtys.add(r);
-	    	r = new Realty("Ulice", "Zcela zdarma");
+	    	r = new Realty("Ulice");
+	    	r.setInfo("vsude prach");
 	    	realtys.add(r);
 	    	pm.makePersistentAll(realtys);
 	    	

@@ -124,6 +124,7 @@
 	    	for (Realty r : realtys) {
 %>
 				<h2><%= r.getName() %></h2>
+				<p>accommodation code: <%= r.getAccommodationCode() %></p>
 				<p>Info: <%= r.getInfo() %></p>
 				<p>Comments: </p>
 <% 
